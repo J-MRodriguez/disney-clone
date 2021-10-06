@@ -1,17 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import ImgSlider from "./ImgSlider";
 import Movies from "./Movies";
 import Viewers from "./Viewers";
 import db from "../firebase";
+import { useDispatch } from "react-redux";
+import { setMovies } from "../features/movie/movieSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
     db.collection("movies").onSnapshot((snapshot) => {
       let tempMovies = snapshot.docs.map((doc) => {
         return { id: doc.id, ...doc.data() };
       });
-      console.log(tempMovies);
+
+      dispatch(setMovies(tempMovies));
     });
   }, []);
 
