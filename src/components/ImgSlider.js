@@ -17,10 +17,31 @@ const ImgSlider = () => {
   return (
     <Carousel {...settings}>
       <Wrap>
+        <img src="/images/slider-scale.jpg" alt="#" />
+      </Wrap>
+      <Wrap>
+        <img src="/images/slider-scales.jpg" alt="#" />
+      </Wrap>
+      <Wrap>
         <img src="/images/slider-badag.jpg" alt="#" />
       </Wrap>
       <Wrap>
-        <img src="/images/slider-scale.jpg" alt="#" />
+        <img
+          src="/images/scale4.webp"
+          style={{
+            height: 337.64,
+            objectFit: "cover",
+            objectPosition: "top",
+          }}
+          alt="#"
+        />
+      </Wrap>
+      <Wrap>
+        <img
+          src="/images/scale2.jfif"
+          style={{ height: 337.64, objectFit: "cover", objectPosition: "top" }}
+          alt="#"
+        />
       </Wrap>
     </Carousel>
   );
