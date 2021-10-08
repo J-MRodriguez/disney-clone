@@ -1,47 +1,56 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import db from "../firebase";
 
 const Detail = () => {
+  const { id } = useParams();
+  const [movie, setMovie] = useState();
+
+  useEffect(() => {
+    db.collection("movies")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          //save the movie data
+          setMovie(doc.data());
+        } else {
+        }
+      });
+  }, []);
+  console.log(movie);
   return (
     <Container>
-      <Background>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/0F009C43FFA959BF054181618D3FC6FFA054769778FBE4B1A2E8F499B065DED6/scale?width=1440&aspectRatio=1.78&format=jpeg"
-          alt="#"
-        />
-      </Background>
-      <ImageTitle>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/39B5CAD95C84A6C5F3C95B70BD8F3A7E8AE796DBC4F11E7ED3702BE1ADACB149/scale?width=1440&aspectRatio=1.78&format=png"
-          alt="#"
-        />
-      </ImageTitle>
-      <Controls>
-        <PlayButton>
-          <img src="/images/play-icon-black.png" alt="#" />
-          <span>PLAY</span>
-        </PlayButton>
-        <TrailerButton>
-          <img src="/images/play-icon-white.png" alt="#" />
-          <span>TRAILER</span>
-        </TrailerButton>
-        <AddButton>
-          <span>+</span>
-        </AddButton>
-        <GroupWathButton>
-          <img src="/images/group-icon.png" alt="#" />
-        </GroupWathButton>
-      </Controls>
-      <SubTitle>
-        2021 • 2h 15min • Espionaje, Superhéroes, Acción y aventura
-      </SubTitle>
-      <Description>
-        Natasha Romanoff aka Black Widow confronts the darker parts of her
-        ledger when a dangerous conspiracy with ties to her past arises. Pursued
-        by a force that will stop at nothing to bring her down, Natasha must
-        deal with her history as a spy and the broken relationships left in her
-        wake long before she became an Avenger.
-      </Description>
+      {movie && (
+        <>
+          <Background>
+            <img src={movie.backgroundImg} alt="#" />
+          </Background>
+          <ImageTitle>
+            <img src={movie.titleImg} alt="#" />
+          </ImageTitle>
+          <Controls>
+            <PlayButton>
+              <img src="/images/play-icon-black.png" alt="#" />
+              <span>PLAY</span>
+            </PlayButton>
+            <TrailerButton>
+              <img src="/images/play-icon-white.png" alt="#" />
+              <span>TRAILER</span>
+            </TrailerButton>
+            <AddButton>
+              <span>+</span>
+            </AddButton>
+            <GroupWathButton>
+              <img src="/images/group-icon.png" alt="#" />
+            </GroupWathButton>
+          </Controls>
+          <SubTitle>{movie.subTitle}</SubTitle>
+          <Description>{movie.description}</Description>
+        </>
+      )}
     </Container>
   );
 };
