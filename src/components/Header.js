@@ -48,7 +48,7 @@ const Header = () => {
   const signOut = () => {
     auth.signOut().then(() => {
       dispatch(setSignOut());
-      history.push("/login");
+      history.push("/");
     });
   };
 
@@ -62,7 +62,7 @@ const Header = () => {
       ) : (
         <>
           <NavMenu>
-            <Link to="/" className="home">
+            <Link to="/home" className="home">
               <a>
                 <img src="/images/home-icon.svg" alt="homeicon" />
                 <span>HOME</span>
